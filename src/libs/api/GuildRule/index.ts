@@ -5,7 +5,7 @@ import { GuildRuleUpsertResponse, GuildRuleUpsertRequest, GuildRuleQueryResponse
 
 export const updateGuildRule = async (guildId: string, ruleId: string, props: GuildRuleUpsertRequest): Promise<GuildRuleUpsertResponse> => {
   logger.info(`Creating patch request to configStore for discordGuildId=${guildId} and props ${props}`);
-  const { data } = await Axios.patch(`${config.apiUrl}/config-store/discord-guild/${guildId}/rule/${ruleId}`, {props});
+  const { data } = await Axios.patch(`${config.apiUrl}/config-store/discord-guild/${guildId}/rule/${ruleId}`, {...props});
 
   return data;
 }

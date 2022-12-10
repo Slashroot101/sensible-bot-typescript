@@ -38,7 +38,7 @@ export default {
                           if(!discordRule.discordGuildRule){
                             logger.info(`Creating discord rule because it does not exist [ruleId=${ruleId}]/[actionId=${actionId}]/[guildId=${guild.id}]`);
                             discordRule = await updateGuildRule(guild.id, ruleId, {rule: {enabled: true, discordGuildId: guild.id, ruleId: ruleId,}});
-                          }
+                          } 
                           console.log(discordRule)
                           const tier = await getTier(actionId, discordRule.discordGuildRule.id);
                           if(tier.tier){
