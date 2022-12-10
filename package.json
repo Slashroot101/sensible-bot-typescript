@@ -1,0 +1,34 @@
+{
+  "name": "sensible-bot-typescript",
+  "version": "1.0.0",
+  "description": "a bot for Discord moderators to make sensible decisions ported to TypeScript",
+  "main": "./src/index.js",
+  "scripts": {
+    "start:dev": "cross-env NODE_ENV=dev npx nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slashroot101/sensible-bot-typescript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Slashroot101/sensible-bot-typescript/issues"
+  },
+  "homepage": "https://github.com/Slashroot101/sensible-bot-typescript#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^1.4.0",
+    "axios": "^1.2.0",
+    "cross-env": "^7.0.3",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "nats": "^2.9.2",
+    "pino": "^8.7.0"
+  }
+}
