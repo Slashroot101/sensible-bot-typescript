@@ -3,8 +3,7 @@ import { Id } from "../Shared/Id";
 
 export type Guild =  {
   discordSnowflake: string;
-  id: Id;
-  audit: Audit;
+  id: string;
 }
 
 export type GuildCreateRequest = {

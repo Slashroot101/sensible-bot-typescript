@@ -1,3 +1,4 @@
+import { GuildRule, GuildRuleWithRelations } from "../GuildRule";
 import { Audit } from "../Shared/Audit";
 import { Id } from "../Shared/Id";
 
@@ -11,6 +12,15 @@ export type Warning = {
   audit: Audit;
 }
 
+export type WarningWithRelations = {
+  expunged: boolean;
+  messageId: string;
+  discordUserId: string;
+  expungedBy: string;
+  DiscordGuildRule: GuildRuleWithRelations;
+  id: string;
+}
+
 export type WarningCreateResponse = {
   warning: Warning;
 }
@@ -20,7 +30,7 @@ export type WarningPatchResponse = {
 }
 
 export type WarningListResponse = {
-  warnings: Warning[];
+  warnings: WarningWithRelations[];
 }
 
 export type GetQueryRequest = {

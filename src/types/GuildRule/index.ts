@@ -1,13 +1,17 @@
+import { Rule } from "../Rule";
 import { Audit } from "../Shared/Audit";
 import { Id } from "../Shared/Id";
 
 export type GuildRule = {
   discordGuildId: string;
   ruleId: string;
-  ruleActionId: string;
+  ruleActionId?: string;
   enabled: boolean;
-  id: Id;
-  audit: Audit;
+  id: string;
+}
+
+export type GuildRuleWithRelations = {
+  Rule: Rule;
 }
 
 export type GuildRuleUpsertResponse = {
@@ -23,7 +27,7 @@ export type GuildRuleUpsertRequest = {
 }
 
 export type GuildRuleBeforeCreate = {
-  ruleActionId: string;
+  ruleActionId?: string;
   enabled: boolean;
   discordGuildId: string;
   ruleId: string;

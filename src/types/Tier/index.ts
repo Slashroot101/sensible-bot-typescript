@@ -5,8 +5,7 @@ export type Tier = {
   maxOffenses: string;
   discordGuildRuleId: string;
   ruleActionId: string;
-  id: Id;
-  audit: Audit;
+  id: string;
 }
 
 export type TierBeforeCreate = {

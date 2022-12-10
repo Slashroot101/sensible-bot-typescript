@@ -1,10 +1,8 @@
-import { Audit } from "../Shared/Audit";
-import { Id } from "../Shared/Id";
+
 
 export type User = {
   discordSnowflake: string;
-  id: Id;
-  audit: Audit;
+  id: string;
 }
 
 export type CreateUserResponse = {
