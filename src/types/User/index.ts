@@ -1,5 +1,3 @@
-
-
 export type User = {
   discordSnowflake: string;
   id: string;

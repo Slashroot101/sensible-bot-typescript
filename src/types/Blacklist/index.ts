@@ -1,11 +1,7 @@
-import { Audit } from "../Shared/Audit";
-import { Id } from "../Shared/Id";
-
 export type Blacklist = {
     word: string;
     discordGuildId: string;
-    id: Id;
-    audit: Audit;
+    id: string;
 }
 
 export type BlacklistCreateResponse = {

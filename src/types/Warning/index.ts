@@ -1,6 +1,4 @@
-import { GuildRule, GuildRuleWithRelations } from "../GuildRule";
-import { Audit } from "../Shared/Audit";
-import { Id } from "../Shared/Id";
+import { GuildRuleWithRelations } from "../GuildRule";
 
 export type Warning = {
   expunged: boolean;
@@ -8,8 +6,7 @@ export type Warning = {
   messageId: string;
   discordUserId: string;
   expungedBy: string;
-  id: Id;
-  audit: Audit;
+  id: string;
 }
 
 export type WarningWithRelations = {

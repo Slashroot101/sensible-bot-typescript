@@ -1,6 +1,3 @@
-import { Audit } from "../Shared/Audit";
-import { Id } from "../Shared/Id";
-
 export type Tier = {
   maxOffenses: string;
   discordGuildRuleId: string;

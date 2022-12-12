@@ -1,6 +1,4 @@
 import { Rule } from "../Rule";
-import { Audit } from "../Shared/Audit";
-import { Id } from "../Shared/Id";
 
 export type GuildRule = {
   discordGuildId: string;
