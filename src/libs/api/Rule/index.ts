@@ -20,6 +20,7 @@ const ruleAndActionData: RuleAndRuleActionData = {
 export const loadRuleData = async(): Promise<void> => {
   const rules = await getRuleList();
   const ruleActions = await getRuleActions();
+  console.log(rules, ruleActions)
   ruleAndActionData.rules = rules.rules;
   ruleAndActionData.ruleActions = ruleActions.ruleActions;
 };

@@ -14,6 +14,7 @@ export default {
     const discordUser = interaction.client.users.cache.get(targetUser)!;
     const savedUser = await getOrCreateUser(targetUser);
     const warnings = await queryWarnings({discordUserId: savedUser.id});
+    console.log(warnings)
     const fields = warnings.warnings.map(warning => {
        return { name: warning.DiscordGuildRule.Rule.name, value: `Expunged: ${warning.expunged}`, inline: true };
     });

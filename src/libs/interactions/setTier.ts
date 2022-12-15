@@ -39,10 +39,11 @@ export default {
                             logger.info(`Creating discord rule because it does not exist [ruleId=${ruleId}]/[actionId=${actionId}]/[guildId=${guild.id}]`);
                             discordRule = await updateGuildRule(guild.id, ruleId, {rule: {enabled: true, discordGuildId: guild.id, ruleId: ruleId,}});
                           } 
-                          console.log(discordRule)
+
                           const tier = await getTier(actionId, discordRule.discordGuildRule.id);
-                          if(tier.tier){
-                            await patchTier(tier.tier.id, {tier: {maxOffenses, discordGuildRuleId: discordRule.discordGuildRule.id, ruleActionId: actionId}});
+
+                          if(tier.tier.length){
+                            await patchTier(tier.tier[0].id, {tier: {maxOffenses, discordGuildRuleId: discordRule.discordGuildRule.id, ruleActionId: actionId}});
                             await interaction.reply(`Succesfully updated the tier!`);
                           } else {
                             await createTier({tier: {discordGuildRuleId: discordRule.discordGuildRule.id, maxOffenses, ruleActionId: actionId}});

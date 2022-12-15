@@ -5,7 +5,7 @@ import { GuildCreateRequest, GuildCreateResponse, GuildQueryRequest, GuildQueryR
 
 export const createGuild = async (request: GuildCreateRequest): Promise<GuildCreateResponse> => {
   logger.info(`Creating guild with axios post for guild for [guildId=${request.guild.discordSnowflake}]`);
-  const { data } = await Axios.post<GuildCreateResponse>(`${config.apiUrl}/discord-guild`, {...request});
+  const { data } = await Axios.post<GuildCreateResponse>(`${config.apiUrl}/discord-guild`, {...request.guild});
 
   return data;
 }

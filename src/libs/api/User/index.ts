@@ -5,7 +5,7 @@ import { CreateUserResponse, DiscordUserBeforeCreate, GetUserRequest, GetUserRes
 
 export const createUser = async (props: DiscordUserBeforeCreate): Promise<CreateUserResponse> => {
   logger.info(`Creating user with Axios post with [discordSnowflake=${props.discordSnowflake}]`)
-  const {data} = await Axios.post<CreateUserResponse>(`${config.apiUrl}/discord-user/`, {discordUser:props});
+  const {data} = await Axios.post<CreateUserResponse>(`${config.apiUrl}/discord-user/`, {discordSnowflake: props.discordSnowflake});
   return data;
 }
 

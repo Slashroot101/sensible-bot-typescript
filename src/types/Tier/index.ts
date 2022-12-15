@@ -20,7 +20,7 @@ export type TierCreateResponse = {
 }
 
 export type TierGetResponse = {
-  tier: Tier;
+  tier: Tier[];
 }
 
 export type CreateTierRequest = {
