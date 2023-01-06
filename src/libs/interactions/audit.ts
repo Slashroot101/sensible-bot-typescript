@@ -12,11 +12,14 @@ export default {
   async execute(interaction: ChatInputCommandInteraction, user: User){
     const targetUser: string = interaction!.options!.get('user')!.value! as string;
     const discordUser = interaction.client.users.cache.get(targetUser)!;
+    if(!discordUser){
+      return await interaction.reply(`Please provide a valid discord user id!`);
+    }
     const savedUser = await getOrCreateUser(targetUser);
     const warnings = await queryWarnings({discordUserId: savedUser.id});
-    console.log(warnings)
+    console.log(warnings.warnings)
     const fields = warnings.warnings.map(warning => {
-       return { name: warning.DiscordGuildRule.Rule.name, value: `Expunged: ${warning.expunged}`, inline: true };
+       return { name: `${warning.discordGuildRule.rule.name}: ${warning.id}`, value: `Expunged: ${warning.isExpunged}`, inline: true };
     });
 
     const embed = new EmbedBuilder()

@@ -1,7 +1,7 @@
 import { GuildRuleWithRelations } from "../GuildRule";
 
 export type Warning = {
-  expunged: boolean;
+  isExpunged: boolean;
   discordGuildRuleId: string;
   messageId: string;
   discordUserId: string;
@@ -9,12 +9,16 @@ export type Warning = {
   id: string;
 }
 
+export type PatchExpungeWarning = {
+  isExpunged: boolean;
+}
+
 export type WarningWithRelations = {
-  expunged: boolean;
+  isExpunged: boolean;
   messageId: string;
   discordUserId: string;
   expungedBy: string;
-  DiscordGuildRule: GuildRuleWithRelations;
+  discordGuildRule: GuildRuleWithRelations;
   id: string;
 }
 
@@ -29,6 +33,7 @@ export type WarningPatchResponse = {
 export type WarningListResponse = {
   warnings: WarningWithRelations[];
 }
+
 
 export type GetQueryRequest = {
   discordUserId: string;

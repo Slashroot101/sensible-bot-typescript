@@ -6,7 +6,7 @@ import logger from "../logger";
 
 export default async function(interaction: Interaction) {
   try {
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isChatInputCommand() || interaction.user.bot) return;
 
     const user = await getOrCreateUser(interaction.user!.id);
     const guild = await getOrCreateGuild(interaction.guild!.id);

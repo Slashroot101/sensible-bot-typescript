@@ -4,7 +4,7 @@
   "description": "a bot for Discord moderators to make sensible decisions ported to TypeScript",
   "main": "./src/index.js",
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=dev npx nodemon"
+    "start:dev": "cross-env NODE_ENV=dev npx ts-node ./src/index.ts | pino-pretty -i pid,hostname -t yyyy-mm-dd HH:MM:ss"
   },
   "repository": {
     "type": "git",

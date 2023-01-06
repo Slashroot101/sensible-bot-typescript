@@ -9,7 +9,7 @@ export type GuildRule = {
 }
 
 export type GuildRuleWithRelations = {
-  Rule: Rule;
+  rule: Rule;
 }
 
 export type GuildRuleUpsertResponse = {
