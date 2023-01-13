@@ -5,7 +5,6 @@ import logger from "../logger";
 export default async function(discordSnowflake: string): Promise<User>{
   logger.info(`Attempting to find or create user for [discordSnowflake=${discordSnowflake}]`);
   const users = await getUser({discordSnowflake});
-  console.log(users)
   let user = null;
   if(!users.discordUsers.length){
       logger.info(`User did not exist for [discordSnowflake=${discordSnowflake}], creating.`)

@@ -27,6 +27,6 @@ export type GuildRuleUpsertRequest = {
 export type GuildRuleBeforeCreate = {
   ruleActionId?: string;
   enabled: boolean;
-  discordGuildId: string;
+  discordGuildId: number;
   ruleId: string;
 }

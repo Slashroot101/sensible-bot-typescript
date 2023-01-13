@@ -3,7 +3,7 @@ import logger from "../../logger/index";
 import config from "../../config/index";
 import { GuildRuleUpsertResponse, GuildRuleUpsertRequest, GuildRuleQueryResponse } from "../../../types/GuildRule";
 
-export const updateGuildRule = async (guildId: string, ruleId: string, props: GuildRuleUpsertRequest): Promise<GuildRuleUpsertResponse> => {
+export const updateGuildRule = async (guildId: number, ruleId: string, props: GuildRuleUpsertRequest): Promise<GuildRuleUpsertResponse> => {
   logger.info(`Creating patch request to configStore for discordGuildId=${guildId} and props ${props}`);
   const { data } = await Axios.patch(`${config.apiUrl}/guild-rule/discord-guild/${guildId}/rule/${ruleId}`, {...props.rule});
 

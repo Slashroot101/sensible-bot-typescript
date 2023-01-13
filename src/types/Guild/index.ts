@@ -1,10 +1,12 @@
 export type Guild =  {
   discordSnowflake: string;
-  id: string;
+  ticketCategoryId: string;
+  ticketCreationChannelId: string;
+  id: number;
 }
 
 export type GuildCreateRequest = {
-  guild: GuildBeforeCreate;
+  discordGuild: GuildBeforeCreate;
 }
 
 export type GuildBeforeCreate = {
@@ -21,4 +23,12 @@ export type GuildQueryResponse = {
 
 export type GuildQueryRequest = {
   discordSnowflake: string;
+}
+
+export type GuildTicketCategoryRequest = {
+  ticketCategoryId: string;
+}
+
+export type GuildTicketChannelRequest = {
+  ticketCreationChannelId: string;
 }

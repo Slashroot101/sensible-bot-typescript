@@ -9,7 +9,7 @@ export default async function(discordSnowflake: string): Promise<Guild> {
   let guild = null;
 
   if(!guilds.discordGuilds.length){
-      return (await createGuild({guild: {discordSnowflake}})).discordGuild;
+      return (await createGuild({discordGuild: {discordSnowflake}})).discordGuild;
   }
 
   if(guilds.discordGuilds.length > 1) {
