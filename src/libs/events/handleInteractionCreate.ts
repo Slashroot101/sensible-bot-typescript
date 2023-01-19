@@ -34,7 +34,8 @@ export default async function(interaction: Interaction) {
           break;
         case ButtonEnum.Ticket.toString():
           logger.debug(`Received ticket button interaction from [userId=${user.id}]/[guildId=${guild.id}]`)
-          await handleTicketCreate(user, guild);
+          await interaction.deferUpdate();
+          await handleTicketCreate(interaction, user, guild);
           break;
       }
     }

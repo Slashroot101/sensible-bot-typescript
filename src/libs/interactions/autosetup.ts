@@ -49,11 +49,10 @@ export default {
         logger.debug(`Guild [guildId=${discordGuild.discordSnowflake}] with [channelId=${discordGuild.ticketCreationChannelId}] exists, skipping channel creation`);
       } else {
         logger.debug(`Guild [guildId=${discordGuild.discordSnowflake}] with [channelId=${discordGuild.ticketCreationChannelId}] was ephemeral, creating`);
-        const creationChannel = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildText, permissionOverwrites: [{
+        const creationChannel = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildText, parent: category, permissionOverwrites: [{
           deny: 'SendMessages',
           id: guildInstance.roles.everyone,
         }]});
-        await creationChannel.setParent(category);
         const helpEmbed = new EmbedBuilder()
         .setTitle('Get Help')
         .setDescription('Click on the reactions below to get help from the admins!')
@@ -85,11 +84,11 @@ export default {
       }
     } else {
       logger.debug(`Guild [guildId=${discordGuild.discordSnowflake}] with [channelId=${discordGuild.ticketCreationChannelId}] was ephemeral, creating`);
-      const creationChannel = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildText, permissionOverwrites: [{
+      const creationChannel = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildText, parent: category, permissionOverwrites: [{
         deny: 'SendMessages',
         id: guildInstance.roles.everyone,
       }]});
-      await creationChannel.setParent(category);
+
       const helpEmbed = new EmbedBuilder()
       .setTitle('Get Help')
       .setDescription('Click on the reactions below to get help from the admins!')

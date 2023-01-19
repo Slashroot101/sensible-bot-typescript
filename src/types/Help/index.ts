@@ -1,5 +1,7 @@
 export enum ButtonEnum {
   Report,
   Ticket,
-  Question
+  Question,
+  Resolve,
+  Deny
 }

@@ -1,3 +1,4 @@
 import { handlePunish } from "./handlePunish";
+import { handleTicketResolution } from "./handleTicketResolution";
 
-export const events = [handlePunish];
+export const events = [handlePunish, handleTicketResolution];

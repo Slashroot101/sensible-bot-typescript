@@ -36,5 +36,5 @@ export type WarningListResponse = {
 
 
 export type GetQueryRequest = {
-  discordUserId: string;
+  discordUserId: number;
 }

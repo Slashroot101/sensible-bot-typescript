@@ -9,5 +9,5 @@ export default async function(e: Message){
   logger.info(`MessageCreate interaction for user [discordSnowflake=${e.author.id}]`);
   const user = await getOrCreateUser(e.author!.id);
   const guild = await getOrCreateGuild(e.guild!.id);
-  nats.publish('MessageCreate', Buffer.from(JSON.stringify({guild, user, msg: e.content, channel: e.channel.id, messageId: e.id})));
+  nats.publish('MessageCreate', Buffer.from(JSON.stringify({guild, user, msg: e.content, channel: e.channel.id, messageId: e.id, messageCreationDate: e.createdAt})));
 }

@@ -1,6 +1,6 @@
 export type User = {
   discordSnowflake: string;
-  id: string;
+  id: number;
 }
 
 export type CreateUserResponse = {
