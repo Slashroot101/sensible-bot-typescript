@@ -16,8 +16,14 @@ export const queryTicket = async function (request: TicketQuery): Promise<Ticket
   return data.tickets;
 }
 
-export const updateTicket = async function (id: string, request: TicketStatusUpdate): Promise<Ticket> {
+export const updateTicket = async function (id: number, request: TicketStatusUpdate): Promise<Ticket> {
   logger.debug(`Updating ticket [ticketId=${id}]`);
-  const { data } = await Axios.put<TicketUpdateResponse>(`${config.apiUrl}/ticket/${id}`, {params: request});
+  const { data } = await Axios.put<TicketUpdateResponse>(`${config.apiUrl}/ticket/${id}`, request);
+  return data.ticket;
+}
+
+export const updateCorrelation = async function(id: number, correlationId: string): Promise<Ticket> {
+  logger.debug(`Updating ticket [ticketId=${id}] correlationId`);
+  const { data } = await Axios.put<TicketUpdateResponse>(`${config.apiUrl}/ticket/${id}/correlation`, {correlationId});
   return data.ticket;
 }

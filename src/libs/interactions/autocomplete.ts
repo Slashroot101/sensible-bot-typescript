@@ -2,10 +2,11 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CategoryChannel, ChannelT
 import logger from "../logger";
 import { Guild } from "../../types/Guild";
 import { User } from "../../types/User";
-import { queryTicket } from "../api/Ticket";
+import { queryTicket, updateCorrelation, updateTicket } from "../api/Ticket";
 import { ButtonEnum } from "../../types/Help";
-import { TicketQueueTopics } from "../../types/Ticket";
+import { TicketQueueTopics, TicketStatus } from "../../types/Ticket";
 import { TaskTopic } from "../../types/Shared/Task";
+import { randomUUID } from "crypto";
 
 export default {
   data: new SlashCommandBuilder()
@@ -27,14 +28,11 @@ export default {
     const ticket = tickets[0];
     logger.info(`Beginning autoclose for [ticketId=${ticket.id}]`);
     const nats = await (await import('../queue/index')).establishQueueConnection;
-
-    if(hours){
-      logger.debug(`Adding queue task for TicketResolution [ticketId=${ticket.id}] to execute in [hours=${hours}] for [reason=${reason}]`);
-      nats.publish(TaskTopic.TaskCreate, Buffer.from(JSON.stringify({payload: {ticketId: ticket.id, channelId: interaction.channelId, user, guild, reason}, occurenceRate: 'Once', eventType: TicketQueueTopics.TicketResolution, minutes: hours * 60, reason})));
-    }
     
     const executionDate = new Date();
     executionDate.setHours(new Date().getHours() + hours);
+
+    await updateTicket(ticket.id, {status: TicketStatus.Pending, reason: ''});
 
     const helpEmbed = new EmbedBuilder()
       .setTitle('Resolve Ticket')
@@ -54,6 +52,13 @@ export default {
         .setStyle(ButtonStyle.Danger),
       );
 
-    return interaction.reply({embeds: [helpEmbed], components: [buttons]});
+    const message = await interaction.reply({embeds: [helpEmbed], components: [buttons]});
+
+    if(hours){
+      logger.debug(`Adding queue task for TicketResolution [ticketId=${ticket.id}] to execute in [hours=${hours}] for [reason=${reason}]`);
+      const correlationId = randomUUID();
+      await updateCorrelation(ticket.id, correlationId);
+      nats.publish(TaskTopic.TaskCreate, Buffer.from(JSON.stringify({payload: {ticketId: ticket.id, channelId: interaction.channelId, user, guild, reason, messageId: message.id}, occurenceRate: 'Once', eventType: TicketQueueTopics.TicketResolution, minutes: hours * 60, reason, correlationId})));
+    }
   }
 }

@@ -1,10 +1,12 @@
-import { Guild, User } from "discord.js";
+import { Guild } from "../Guild";
+import { User } from "../User";
 
 export type Ticket = {
   id: number;
   submittedByUserId: number;
   discordGuildId: number;
   discordChannelSnowflake: string;
+  reason: string;
   status: TicketStatus;
 }
 
@@ -27,7 +29,7 @@ export type TicketQueryResponse = {
 }
 
 export type TicketStatusUpdate = {
-  reason: string;
+  reason?: string;
   status: string;
 }
 
@@ -36,16 +38,18 @@ export type TicketUpdateResponse = {
 }
 
 export type TicketResolutionMessage = {
-  ticketId: string,
+  ticketId: number,
   channelId: string,
   user: User,
   guild: Guild,
   reason: string,
+  messageId: string,
 }
 
 export enum TicketStatus {
   Open = "Open",
-  Resolved = "Resolved"
+  Resolved = "Resolved",
+  Pending = "Pending"
 }
 
 export enum TicketQueueTopics {

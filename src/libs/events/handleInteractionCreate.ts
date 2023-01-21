@@ -3,6 +3,8 @@ import { ButtonEnum } from "../../types/Help";
 import getOrCreateGuild from "../businessLogic/getOrCreateGuild";
 import getOrCreateUser from "../businessLogic/getOrCreateUser";
 import handleTicketCreate from "../businessLogic/handleTicketCreate";
+import handleTicketDeny from "../businessLogic/handleTicketDeny";
+import handleTicketResolve from "../businessLogic/handleTicketResolve";
 import logger from "../logger";
 
 export default async function(interaction: Interaction) {
@@ -36,6 +38,14 @@ export default async function(interaction: Interaction) {
           logger.debug(`Received ticket button interaction from [userId=${user.id}]/[guildId=${guild.id}]`)
           await interaction.deferUpdate();
           await handleTicketCreate(interaction, user, guild);
+          break;
+        case ButtonEnum.Deny.toString():
+          logger.debug(`Received deny button interaction from [userId=${user.id}]/[guildId=${guild.id}]`);
+          handleTicketDeny(interaction, user, guild);
+          break;
+        case ButtonEnum.Resolve.toString():
+          logger.debug(`Received resolve button interaction from [userId=${user.id}]/[guildId=${guild.id}]`);
+          handleTicketResolve(interaction, user, guild);
           break;
       }
     }
