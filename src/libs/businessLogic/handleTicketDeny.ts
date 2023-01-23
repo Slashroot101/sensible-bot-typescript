@@ -3,10 +3,11 @@ import { Guild } from "../../types/Guild";
 import { TaskTopic } from "../../types/Shared/Task";
 import { TicketQueueTopics, TicketStatus } from "../../types/Ticket";
 import { User } from "../../types/User";
+import { UserGuild } from "../../types/UserGuild";
 import { queryTicket, updateTicket } from "../api/Ticket";
 import logger from "../logger";
 
-export default async function(interaction: ButtonInteraction, user: User, guild: Guild) {
+export default async function(interaction: ButtonInteraction, user: User, guild: Guild, userGuild: UserGuild) {
   logger.debug(`Handling ticket deny with [userId=${user.id}]/[guildId=${guild.id}]`);
 
   const tickets = await queryTicket({discordChannelSnowflake: interaction.channelId});

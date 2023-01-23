@@ -2,6 +2,7 @@ import { Interaction } from "discord.js";
 import { ButtonEnum } from "../../types/Help";
 import getOrCreateGuild from "../businessLogic/getOrCreateGuild";
 import getOrCreateUser from "../businessLogic/getOrCreateUser";
+import getOrCreateUserGuild from "../businessLogic/getOrCreateUserGuild";
 import handleTicketCreate from "../businessLogic/handleTicketCreate";
 import handleTicketDeny from "../businessLogic/handleTicketDeny";
 import handleTicketResolve from "../businessLogic/handleTicketResolve";
@@ -13,6 +14,7 @@ export default async function(interaction: Interaction) {
 
     const user = await getOrCreateUser(interaction.user!.id);
     const guild = await getOrCreateGuild(interaction.guild!.id);
+    const userGuild = await getOrCreateUserGuild(guild.id, user.id, interaction.guild?.ownerId === interaction.user.id);
 
     if(interaction.isChatInputCommand()){
       const command = await (await (await import('../discordClient')).establishDiscordClientConnection).commands.get(interaction.commandName);
@@ -23,7 +25,7 @@ export default async function(interaction: Interaction) {
       }
       
       logger.info(`Attempting to execute ${interaction.commandName} for [guildId=${guild.id}]/[userId=${user.id}]`);
-      await command.execute(interaction, user, guild);
+      await command.execute(interaction, user, guild, userGuild);
     }
 
     if(interaction.isButton()){
@@ -37,15 +39,15 @@ export default async function(interaction: Interaction) {
         case ButtonEnum.Ticket.toString():
           logger.debug(`Received ticket button interaction from [userId=${user.id}]/[guildId=${guild.id}]`)
           await interaction.deferUpdate();
-          await handleTicketCreate(interaction, user, guild);
+          await handleTicketCreate(interaction, user, guild, userGuild);
           break;
         case ButtonEnum.Deny.toString():
           logger.debug(`Received deny button interaction from [userId=${user.id}]/[guildId=${guild.id}]`);
-          handleTicketDeny(interaction, user, guild);
+          handleTicketDeny(interaction, user, guild, userGuild);
           break;
         case ButtonEnum.Resolve.toString():
           logger.debug(`Received resolve button interaction from [userId=${user.id}]/[guildId=${guild.id}]`);
-          handleTicketResolve(interaction, user, guild);
+          handleTicketResolve(interaction, user, guild, userGuild);
           break;
       }
     }

@@ -4,19 +4,24 @@ import { Guild } from "../../types/Guild";
 import { TaskTopic } from "../../types/Shared/Task";
 import { TicketQueueTopics, TicketStatus } from "../../types/Ticket";
 import { User } from "../../types/User";
+import { UserGuild } from "../../types/UserGuild";
 import { queryTicket } from "../api/Ticket";
+import { getUserGuildById } from "../api/UserGuild";
 import logger from "../logger";
+import getOrCreateUserGuild from "./getOrCreateUserGuild";
 
 
-export default async function(interaction: ButtonInteraction, user: User, guild: Guild) {
+export default async function(interaction: ButtonInteraction, user: User, guild: Guild, userGuild: UserGuild) {
   logger.debug(`Handling ticket resolution with [userId=${user.id}]/[guildId=${guild.id}]`);
 
   const tickets = await queryTicket({discordChannelSnowflake: interaction.channelId});
   const ticket = tickets[0];
 
+  const ticketUserGuild = await getUserGuildById(ticket.userGuildId);
+
   logger.debug(`Handling ticket resolution for [ticketId=${ticket.id}]/[userId=${user.id}]`);
 
-  if(user.id !== ticket.submittedByUserId){
+  if(user.id !== ticketUserGuild.discordUserId){
     await interaction.deferUpdate();
     return interaction!.channel!.send(`<@${interaction.user.id}>, you must be the submitter to approve the ticket resolution!`);
   }

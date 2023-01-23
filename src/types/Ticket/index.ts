@@ -3,24 +3,21 @@ import { User } from "../User";
 
 export type Ticket = {
   id: number;
-  submittedByUserId: number;
-  discordGuildId: number;
+  userGuildId: number;
   discordChannelSnowflake: string;
   reason: string;
   status: TicketStatus;
 }
 
 export type TicketBeforeCreate = {
-  submittedByUserId: number;
-  discordGuildId: number;
+  userGuildId: number;
   discordChannelSnowflake: string;
   status: TicketStatus;
 }
 
 export type TicketQuery = {
   status?: string;
-  discordGuildId?: number;
-  submittedByUserId?: number;
+  userGuildId?: number;
   discordChannelSnowflake?: string;
 }
 
