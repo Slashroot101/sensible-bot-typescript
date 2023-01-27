@@ -11,6 +11,9 @@ import logger from "../logger";
 export default async function(interaction: ButtonInteraction, user: User, guild: Guild, userGuild: UserGuild) {
   logger.debug(`Handling ticket create for user [userId=${user.id}]/[guildId=${guild.id}]`);
   const client = await (await (await import('../discordClient')).establishDiscordClientConnection);
+  if(!guild.ticketCategoryId){
+    return logger.warn(`Ticket category [ticketCategoryId=${guild.ticketCategoryId}] in guild [guildId=${guild.id}] does not exist.`);
+  }
   const category = await client.channels.fetch(guild.ticketCategoryId) as CategoryChannel;
   const guildInstance = await client.guilds.fetch(guild.discordSnowflake);
   const channel = await guildInstance.channels.create({name: randomUUID(), parent: category, permissionOverwrites: [{

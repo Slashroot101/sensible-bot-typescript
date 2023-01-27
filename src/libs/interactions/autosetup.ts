@@ -35,7 +35,7 @@ export default {
         await setTicketCategory({ticketCategoryId: channelCategory.id}, guild.id);
       }
     } else {
-      const channelCategory = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildCategory, permissionOverwrites: [{
+      const channelCategory = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildCategory, parent:category, permissionOverwrites: [{
         deny: 'SendMessages',
         id: guildInstance.roles.everyone,
       }]});
