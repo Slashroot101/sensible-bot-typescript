@@ -10,14 +10,14 @@ export const createTier = async (props: CreateTierRequest): Promise<TierCreateRe
   return createdTier.data;
 };
 
-export const patchTier = async (tierId: string, props: PatchTierRequest): Promise<TierUpdateResponse> => {
+export const patchTier = async (tierId: number, props: PatchTierRequest): Promise<TierUpdateResponse> => {
   logger.info(`Patching tier [tierId=${tierId}]`);
   const patchedTier = await Axios.patch<TierUpdateResponse>(`${config.apiUrl}/guild-rule-action/${tierId}`, {...props.tier});
 
   return patchedTier.data;
 };
 
-export const getTier = async (actionId: string, guildRuleId: string): Promise<TierGetResponse> => {
+export const getTier = async (actionId: number, guildRuleId: number): Promise<TierGetResponse> => {
   logger.info(`Getting tier with [actionId=${actionId}]/[guildRuleId=${guildRuleId}]`);
   const tier = await Axios.get<TierGetResponse>(`${config.apiUrl}/guild-rule-action/guild-rule/${guildRuleId}/action/${actionId}`);
 

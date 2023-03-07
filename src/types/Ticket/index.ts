@@ -27,7 +27,7 @@ export type TicketQueryResponse = {
 
 export type TicketStatusUpdate = {
   reason?: string;
-  status: string;
+  status?: string;
 }
 
 export type TicketUpdateResponse = {

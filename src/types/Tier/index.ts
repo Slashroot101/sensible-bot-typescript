@@ -1,14 +1,14 @@
 export type Tier = {
-  maxOffenses: string;
-  discordGuildRuleId: string;
-  ruleActionId: string;
-  id: string;
+  maxOffenses: number;
+  discordGuildRuleId: number;
+  ruleActionId: number;
+  id: number;
 }
 
 export type TierBeforeCreate = {
-  maxOffenses: string;
-  discordGuildRuleId: string;
-  ruleActionId: string;
+  maxOffenses: number;
+  discordGuildRuleId: number;
+  ruleActionId: number;
 }
 
 export type TierUpdateResponse = {

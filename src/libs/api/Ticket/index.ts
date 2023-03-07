@@ -5,9 +5,8 @@ import { Ticket, TicketBeforeCreate, TicketQuery, TicketQueryResponse, TicketSta
 
 export const createTicket = async function (request: TicketBeforeCreate): Promise<Ticket> {
   logger.info('Creating ticket with Axios post');
-  const { data } = await Axios.post<Ticket>(`${config.apiUrl}/ticket`, request);
-
-  return data;
+  const { data } = await Axios.post<TicketUpdateResponse>(`${config.apiUrl}/ticket`, request);
+  return data.ticket;
 }
 
 export const queryTicket = async function (request: TicketQuery): Promise<Ticket[]> {

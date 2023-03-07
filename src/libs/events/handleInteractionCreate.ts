@@ -1,4 +1,5 @@
 import { Interaction } from "discord.js";
+import { updateTicket } from '../api/Ticket';
 import { ButtonEnum } from "../../types/Help";
 import getOrCreateGuild from "../businessLogic/getOrCreateGuild";
 import getOrCreateUser from "../businessLogic/getOrCreateUser";
@@ -28,6 +29,20 @@ export default async function(interaction: Interaction) {
       await command.execute(interaction, user, guild, userGuild);
     }
 
+    if(interaction.isModalSubmit()){
+      if(interaction.customId.includes('ticketReasonFields')){
+        console.log(interaction.customId);
+        const id = Number(interaction.customId.split('|')[1]);
+        logger.info(`Received ticketReason update for [ticketId=${id}]`);
+
+        await updateTicket(id, {reason: interaction.fields.getTextInputValue('ticketReason')});
+      }
+
+      interaction.deferUpdate();
+
+      return;
+    }
+
     if(interaction.isButton()){
       switch(interaction.customId){
         case ButtonEnum.Question.toString():
@@ -38,7 +53,6 @@ export default async function(interaction: Interaction) {
           break;
         case ButtonEnum.Ticket.toString():
           logger.debug(`Received ticket button interaction from [userId=${user.id}]/[guildId=${guild.id}]`)
-          await interaction.deferUpdate();
           await handleTicketCreate(interaction, user, guild, userGuild);
           break;
         case ButtonEnum.Deny.toString():

@@ -29,19 +29,16 @@ export default {
                         .addNumberOption(opt => opt.setName('maxoffenses').setDescription('The max offenses before this tier is executed').setRequired(true)),
                         async execute(interaction: ChatInputCommandInteraction, user: User, guild: Guild) {
                           logger.info(`Processing command /tier for user [discordSnowflake=${interaction.user.id}]`);
-                          const ruleId = interaction!.options!.get('name')!.value as string;
-                          const actionId = interaction.options.get('action')!.value as string;
-                          const maxOffenses = interaction.options.get('maxoffenses')!.value as string;
-                      
+                          const ruleId = interaction!.options!.get('name')!.value as number;
+                          const actionId = interaction.options.get('action')!.value as number;
+                          const maxOffenses = interaction.options.get('maxoffenses')!.value as number;
                           let discordRule = await getDiscordRuleByRuleAction(ruleId, actionId);
                       
                           if(!discordRule.discordGuildRule){
                             logger.info(`Creating discord rule because it does not exist [ruleId=${ruleId}]/[actionId=${actionId}]/[guildId=${guild.id}]`);
-                            discordRule = await updateGuildRule(guild.id, ruleId, {rule: {enabled: true, discordGuildId: guild.id, ruleId: ruleId,}});
+                            discordRule = await updateGuildRule(guild.id, ruleId, {rule: {enabled: true, discordGuildId: guild.id, ruleId: ruleId, ruleActionId: actionId}});
                           } 
-
                           const tier = await getTier(actionId, discordRule.discordGuildRule.id);
-
                           if(tier.tier.length){
                             await patchTier(tier.tier[0].id, {tier: {maxOffenses, discordGuildRuleId: discordRule.discordGuildRule.id, ruleActionId: actionId}});
                             await interaction.reply(`Succesfully updated the tier!`);

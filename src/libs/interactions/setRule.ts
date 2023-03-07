@@ -28,8 +28,8 @@ export default {
   .addBooleanOption(opt => opt.setName('enabled').setDescription('Whether or not the rule is enabled').setRequired(true)),
   async execute(interaction: ChatInputCommandInteraction, user: User, guild: Guild) {
     logger.info(`Processing command /setrule for user [discordSnowflake=${interaction.user.id}]`);
-    const ruleName = interaction!.options!.get('name')!.value as string;
-    const ruleAction = interaction.options.get('action')!.value as string;
+    const ruleName = interaction!.options!.get('name')!.value as number;
+    const ruleAction = interaction.options.get('action')!.value as number;
     const enabled = interaction!.options!.get('enabled')!.value as boolean;
 
     await updateGuildRule(guild.id, ruleName, {rule: {ruleActionId: ruleAction, enabled, discordGuildId: guild.id, ruleId: ruleName,}});

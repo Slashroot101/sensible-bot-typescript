@@ -1,11 +1,11 @@
 import { Rule } from "../Rule";
 
 export type GuildRule = {
-  discordGuildId: string;
-  ruleId: string;
-  ruleActionId?: string;
+  discordGuildId: number;
+  ruleId: number;
+  ruleActionId?: number;
   enabled: boolean;
-  id: string;
+  id: number;
 }
 
 export type GuildRuleWithRelations = {
@@ -25,8 +25,8 @@ export type GuildRuleUpsertRequest = {
 }
 
 export type GuildRuleBeforeCreate = {
-  ruleActionId?: string;
+  ruleActionId?: number;
   enabled: boolean;
   discordGuildId: number;
-  ruleId: string;
+  ruleId: number;
 }

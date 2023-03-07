@@ -27,7 +27,7 @@ export default {
         category = channel as CategoryChannel;
       } else {
         logger.debug(`Guild [guildId=${discordGuild.discordSnowflake}] with [channelId=${discordGuild.ticketCategoryId}] was ephemeral, creating`);
-        const channelCategory = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildCategory, permissionOverwrites: [{
+        const channelCategory = await guildInstance.channels.create({name: 'TICKET-HELP', type: ChannelType.GuildCategory, parent:category, permissionOverwrites: [{
           deny: 'SendMessages',
           id: guildInstance.roles.everyone,
         }]});
