@@ -11,5 +11,5 @@ export default async function(e: Message){
   const user = await getOrCreateUser(e.author!.id);
   const guild = await getOrCreateGuild(e.guild!.id);
   await getOrCreateUserGuild(guild.id, user.id, e.guild?.ownerId === e.member?.id);
-  nats.publish('MessageCreate', Buffer.from(JSON.stringify({guild, user, msg: e.content, channel: e.channel.id, messageId: e.id, messageCreationDate: e.createdAt})));
+  nats.publish('MessageCreate', Buffer.from(JSON.stringify({guild, user, msg: e.content, attachments: e.attachments, channel: e.channel.id, messageId: e.id, messageCreationDate: e.createdAt})));
 }
